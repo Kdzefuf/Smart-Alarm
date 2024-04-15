@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <TextView
+        android:id="@+id/alarmTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginRight="50dp"
+        android:background="#000000"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Установка будильника"
+        android:textAlignment="center"
+        android:textColor="#C1C1C1"
+        android:textSize="24sp" />
+
+    <TimePicker
+        android:layout_width="174dp"
+        android:layout_height="165dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:timePickerMode="spinner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="321dp"
+        android:background="@drawable/round"
+        android:backgroundTint="#2A2C3E"
+        android:orientation="vertical"
+        android:paddingStart="22dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="22dp"
+        android:paddingBottom="21dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_light"
+                android:letterSpacing="0.1"
+                android:text="Завтра - пн, 25 мар."
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/calendarButton"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:background="#00FFFFFF"
+                android:drawableEnd="@drawable/calendar" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/monday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Пн"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/tuesday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Вт"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/wednesday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Ср"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/thursday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Чт"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/friday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Пт"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/saturday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Сб"
+                android:textAllCaps="false"
+                android:textColor="#776AA6"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/sunday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="7dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:minWidth="0dip"
+                android:minHeight="0dip"
+                android:padding="0dp"
+                android:text="Вс"
+                android:textAllCaps="false"
+                android:textColor="#776AA6"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/alarmName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_light"
+            android:letterSpacing="0.085"
+            android:text="Название будильника"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="-2dp"
+            android:layout_marginEnd="7dp"
+            android:background="#FFFFFF" />
+
+        <LinearLayout
+            android:id="@+id/repeatLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="7dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:text="Повтор"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/repeatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-55dp"
+                android:layout_marginTop="17dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_light"
+                android:text="5 минут, 3 раза"
+                android:textColor=" #776AA6"
+                android:textSize="12sp" />
+
+            <Switch
+                android:id="@+id/repeatSwitch"
+                android:layout_width="43dp"
+                android:layout_height="26dp"
+                android:background="#00FFFFFF"
+                android:textColorLink="#FFFFFF"
+                android:thumb="@drawable/ellipse_1"
+                android:thumbTint="#FFFFFF"
+                android:thumbTintMode="src_in"
+                android:track="@drawable/rectangle_2"
+                android:trackTint="#000000"
+                android:trackTintMode="src_in" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="7dp"
+            android:background="#776AA6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingStart="4dp"
+            android:paddingEnd="7dp">
+
+            <TextView
+                android:id="@+id/addVolumeText"
+                android:layout_width="238dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:text="Постепенное увеличение громкости будильника "
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Switch
+                android:id="@+id/repeatSwitch2"
+                android:layout_width="43dp"
+                android:layout_height="26dp"
+                android:layout_weight="1"
+                android:textColorLink="#FFFFFF"
+                android:thumb="@drawable/ellipse_1"
+                android:thumbTint="#FFFFFF"
+                android:thumbTintMode="src_in"
+                android:track="@drawable/rectangle_2"
+                android:trackTint="#000000"
+                android:trackTintMode="src_in" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="7dp"
+            android:background="#776AA6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingStart="4dp">
+
+            <TextView
+                android:id="@+id/musicText"
+                android:layout_width="238dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:text="Выбор мелодии"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:drawableEnd="@drawable/arrow_right" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/setAlarmButton"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/big_round"
+        android:backgroundTint="#776AA6"
+        android:fontFamily="@font/montserrat"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp"
+        android:text="Установить"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="#00000000"
+        android:fontFamily="@font/montserrat_light"
+        android:text="Отмена"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</RelativeLayout>
