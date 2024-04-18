@@ -1,15 +1,14 @@
 package com.example.smartalarm
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.widget.RelativeLayout
 import android.widget.Switch
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.graphics.Color
 
 class AlarmActivity : ComponentActivity() {
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    @SuppressLint("UseSwitchCompatOrMaterialCode", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
@@ -18,6 +17,8 @@ class AlarmActivity : ComponentActivity() {
         switch.thumbTintMode = PorterDuff.Mode.SRC_IN
 
         switch.trackTintMode = PorterDuff.Mode.SCREEN
+
+        var layout = findViewById<RelativeLayout>(R.id.mainLayout)
 
 //        setContent {
 //
