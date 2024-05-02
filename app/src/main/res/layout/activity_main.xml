@@ -237,7 +237,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableStart="@drawable/icon"
+            android:drawableStart="@drawable/icon__3___1_"
             android:fontFamily="@font/montserrat"
             android:letterSpacing="0.2"
             android:text=" Время отхода ко сну"

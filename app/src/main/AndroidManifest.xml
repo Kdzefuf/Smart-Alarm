@@ -2,23 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/smart_alarm_ic"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/smart_alarm_ic_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartAlarm"
         tools:targetApi="31">
         <activity
             android:name=".AlarmActivity"
-            android:exported="false"
-            android:label="@string/title_activity_alarm"
-            android:theme="@style/Theme.SmartAlarm" />
-        <activity
-            android:name=".ui.theme.AlarmActivity"
             android:exported="false"
             android:label="@string/title_activity_alarm"
             android:theme="@style/Theme.SmartAlarm" />
@@ -32,6 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"
