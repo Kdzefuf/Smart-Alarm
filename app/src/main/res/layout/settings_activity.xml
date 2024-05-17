@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:background="#000000"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Настройки"
+        android:textAlignment="center"
+        android:textColor="#C1C1C1"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:id="@+id/footerMenu"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:background="#2A2C3E"
+        android:orientation="horizontal"
+        android:paddingStart="37dp"
+        android:paddingTop="25dp"
+        android:paddingEnd="36dp">
+
+        <Button
+            android:id="@+id/tracker"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/moon" />
+
+        <Button
+            android:id="@+id/alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/timer" />
+
+        <Button
+            android:id="@+id/stats"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/tab_menu" />
+
+        <Button
+            android:id="@+id/music"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/music" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/setting_select" />
+
+    </LinearLayout>
+</RelativeLayout>

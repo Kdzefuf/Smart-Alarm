@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <TextView
+        android:id="@+id/meditationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:background="#000000"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Звуки сна"
+        android:textAlignment="center"
+        android:textColor="#C1C1C1"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="545dp"
+        android:layout_below="@id/meditationTitle"
+        android:layout_marginTop="46dp"
+        android:paddingStart="26dp"
+        android:paddingEnd="26dp">
+
+        <RelativeLayout
+            android:id="@+id/scrollLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/soundButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/drops_dance"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Танец капель"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/shower"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Ливень"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton1"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/rain_walk"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Прогулка под дождём"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton2"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/thunder"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Раскаты грома"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton3"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/sea_deeps"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Шёпот морских глубин"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/surf_sound"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Шум прибоя"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton5"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/universe"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Таинственная вселенная"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton6"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/bonfire"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Посиделка у костра"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton7"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/wind"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Пение ветра"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/soundButton10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/soundButton8"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/round"
+                android:drawableTop="@drawable/train_drive"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Поездка на поезде"
+                android:textAllCaps="false"
+                android:textColor="#C1C1C1"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/audioLayout"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_alignTop="@id/footerMenu"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-67dp"
+        android:background="#000000"
+        android:orientation="horizontal"
+        android:paddingStart="18dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="26dp"
+        android:paddingBottom="9dp"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/audioImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/drops_dance" />
+
+        <TextView
+            android:id="@+id/audioText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="11dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/cancelAudioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="14dp"
+            app:srcCompat="@drawable/close_circle" />
+
+        <ImageView
+            android:id="@+id/playPauseAudioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/pause" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footerMenu"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:background="#2A2C3E"
+        android:orientation="horizontal"
+        android:paddingStart="37dp"
+        android:paddingTop="25dp"
+        android:paddingEnd="36dp">
+
+        <Button
+            android:id="@+id/tracker"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/moon" />
+
+        <Button
+            android:id="@+id/alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/timer" />
+
+        <Button
+            android:id="@+id/stats"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/tab_menu" />
+
+        <Button
+            android:id="@+id/music"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/music_select" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/setting" />
+
+    </LinearLayout>
+</RelativeLayout>

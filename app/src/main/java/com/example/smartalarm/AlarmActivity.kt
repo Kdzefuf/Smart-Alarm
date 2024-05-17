@@ -2,11 +2,10 @@ package com.example.smartalarm
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -26,6 +25,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Switch
@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
@@ -48,8 +49,6 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.smartalarm.ui.theme.SmartAlarmTheme
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import java.time.LocalTime
 import java.util.Calendar
 
@@ -58,17 +57,21 @@ class AlarmActivity : ComponentActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var alarmManager: AlarmManager
     private lateinit var alarmTime: LocalTime
-    private lateinit var picker: MaterialTimePicker
+    private lateinit var mediaPlayer: MediaPlayer
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseSwitchCompatOrMaterialCode", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.one)
+
         setContent {
             val repeatCheckedState =  remember { mutableStateOf(false) }
-            val volumeUpCheckedState = remember { mutableStateOf(false) }
+            val volumeUpCheckedState = remember { mutableStateOf(true) }
             val repeatText = "5 минут, 3 раза"
+            val alarmName = remember{mutableStateOf("Название будильника")}
+            val repeatIntent = Intent(this, RepeatActivity::class.java)
 
             SmartAlarmTheme {
                 Column(modifier = Modifier
@@ -181,12 +184,16 @@ class AlarmActivity : ComponentActivity() {
                                 textAlign = TextAlign.Left
                             )
                         }
-                        Text(
-                            text = "Название будильника",
-                            modifier = Modifier.padding(start = 6.dp, top = 20.dp),
-                            color = Color.White,
-                            fontWeight = FontWeight(400),
-                            fontSize = 16.sp,
+                        BasicTextField(
+                            value = alarmName.value,
+                            onValueChange = {alarmName.value = it},
+                            modifier = Modifier.padding(start = 6.dp, top = 20.dp, end = 7.dp),
+                            textStyle = TextStyle(
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight(400)
+                            ),
+                            singleLine = true
                         )
                         Box(modifier = Modifier
                             .padding(start = 6.dp, end = 7.dp)
@@ -211,7 +218,7 @@ class AlarmActivity : ComponentActivity() {
                                     letterSpacing = TextUnit(0.8f, TextUnitType.Sp)
                                 )
                             }
-                            CreateSwitch(checkedState = repeatCheckedState)
+                            CreateSwitch(checkedState = repeatCheckedState, intent = repeatIntent)
                         }
                         Box(modifier = Modifier
                             .padding(start = 6.dp, top = 3.dp, end = 7.dp)
@@ -228,7 +235,18 @@ class AlarmActivity : ComponentActivity() {
                                 fontWeight = FontWeight(400),
                                 fontSize = 16.sp
                             )
-                            CreateSwitch(checkedState = volumeUpCheckedState)
+                            Switch (
+                                checked = volumeUpCheckedState.value,
+                                onCheckedChange = {
+                                    volumeUpCheckedState.value = it
+                                },
+                                colors = SwitchDefaults.colors(
+                                    checkedThumbColor = Color(0xFFFFFFFF),
+                                    checkedTrackColor = Color(0xFF776AA6),
+                                    uncheckedThumbColor = Color(0xFFFFFFFF),
+                                    uncheckedTrackColor = Color(0xFF000000)
+                                )
+                            )
                         }
                         Box(modifier = Modifier
                             .padding(start = 6.dp, top = 3.dp, end = 7.dp)
@@ -236,24 +254,34 @@ class AlarmActivity : ComponentActivity() {
                             .height(1.dp)
                             .background(color = Color(119, 106, 166))
                         )
-                        Row(modifier = Modifier.padding(start = 6.dp, top = 14.dp)) {
+                        Row(modifier = Modifier.padding(start = 6.dp)) {
                             Text(text = "Выбор мелодии",
                                 modifier = Modifier
+                                    .padding(top = 14.dp)
                                     .fillMaxWidth()
                                     .weight(1f),
                                 color = Color.White,
                                 fontWeight = FontWeight(400),
                                 fontSize = 16.sp
                             )
-                            Image(
-                                painter = painterResource(id = R.drawable.arrow_right),
-                                contentDescription = "Выбор мелодии",
-                                modifier = Modifier
-                                    .padding(top = 2.dp)
-                                    .height(19.dp)
-                                    .width(19.dp),
-                                alignment = Alignment.CenterEnd
-                            )
+                            Button(onClick = {
+                                val setMusicIntent = Intent(context, AlarmMusicActivity::class.java)
+                                startActivity(setMusicIntent)
+                            },
+                                modifier = Modifier.padding(0.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color.Transparent
+                                )) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.arrow_right),
+                                    contentDescription = "Выбор мелодии",
+                                    modifier = Modifier
+                                        .padding(top = 2.dp)
+                                        .height(19.dp)
+                                        .width(19.dp),
+                                    alignment = Alignment.CenterEnd
+                                )
+                            }
                         }
                     }
                     Button(onClick = { setAlarm(context) },
@@ -297,26 +325,13 @@ class AlarmActivity : ComponentActivity() {
         startActivity(mainActivity)
     }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name : CharSequence = "smartAlarmReminderChannel"
-            val description = "Channel For Alarm Manager"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("SmartAlarm", name, importance)
-            channel.description = description
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
     @Composable
-    fun CreateSwitch(checkedState: MutableState<Boolean>) {
+    fun CreateSwitch(checkedState: MutableState<Boolean>, intent: Intent) {
         Switch (
             checked = checkedState.value,
             onCheckedChange = {
                 checkedState.value = it
+                startActivity(intent)
             },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color(0xFFFFFFFF),
@@ -331,12 +346,6 @@ class AlarmActivity : ComponentActivity() {
     @SuppressLint("MissingPermission")
     private fun setAlarm(context: Context) {
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-
-        picker = MaterialTimePicker.Builder()
-            .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(alarmTime.hour)
-            .setMinute(alarmTime.minute)
-            .build()
 
         calendar = Calendar.getInstance()
 
@@ -356,5 +365,7 @@ class AlarmActivity : ComponentActivity() {
         )
 
         Toast.makeText(context, "Alarm set Succesfully", Toast.LENGTH_SHORT).show()
+        val setAlarmIntent = Intent(this,AlarmMenu::class.java)
+        startActivity(setAlarmIntent)
     }
 }

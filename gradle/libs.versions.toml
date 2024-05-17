@@ -1,18 +1,24 @@
 [versions]
-agp = "8.3.2"
+aachartcoreKotlinVersion = "-SNAPSHOT"
+agp = "8.4.0"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.7.0"
-activityCompose = "1.8.2"
+activityCompose = "1.9.0"
 composeBom = "2023.08.00"
 material = "1.11.0"
 snapper = "0.3.0"
 material3Android = "1.2.1"
+mpandroidchart = "v3.1.0"
+ycharts = "2.1.0"
+aachartcoreKotlin = "0-SNAPSHOT"
+githubAachartcoreKotlin = "0-SNAPSHOT"
 
 [libraries]
+aachartcore-kotlin = { module = "com.github.AAChartModel:AAChartCore-Kotlin", version.ref = "aachartcoreKotlinVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -30,6 +36,9 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 snapper = { group = "dev.chrisbanes.snapper", name = "snapper", version.ref = "snapper" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mpandroidchart" }
+ycharts = { group = "co.yml", name = "ycharts", version.ref = "ycharts" }
+aachartmodel-aachartcore-kotlin = { group = "com.github.AAChartModel", name = "AAChartCore-Kotlin", version = "7.2.1" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
