@@ -102,6 +102,12 @@ class StatsActivity : ComponentActivity() {
             .yAxisMin(5)
         sleepDurationView.aa_drawChartWithChartModel(sleepDurationModel)
 
+        val openDayStatsButton = findViewById<Button>(R.id.statsDayButton)
+        openDayStatsButton.setOnClickListener {
+            val openDayStatsIntent = Intent(this, StatsDayActivity::class.java)
+            startActivity(openDayStatsIntent)
+        }
+
         val openAlarmsButton = findViewById<Button>(R.id.alarm)
         openAlarmsButton.setOnClickListener {
             val openAlarmsIntent = Intent(this, AlarmMenu::class.java)

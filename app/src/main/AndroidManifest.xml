@@ -15,6 +15,11 @@
         android:theme="@style/Theme.SmartAlarm"
         tools:targetApi="31">
         <activity
+            android:name=".StatsDayActivity"
+            android:exported="false"
+            android:label="@string/title_activity_stats_day"
+            android:theme="@style/Theme.SmartAlarm" />
+        <activity
             android:name=".AlarmMusicActivity"
             android:exported="false"
             android:label="@string/title_activity_alarm_music"

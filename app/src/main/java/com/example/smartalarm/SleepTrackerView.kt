@@ -42,7 +42,6 @@ class SleepTrackerView(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        /* canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), ((width / 2) - 30).toFloat(), paint) */
         drawCircleClock(canvas)
     }
 

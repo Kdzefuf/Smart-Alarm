@@ -5,4 +5,5 @@
     <string name="title_activity_meditation">MeditationActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_alarm_music">AlarmMusicActivity</string>
+    <string name="title_activity_stats_day">StatsDayActivity</string>
 </resources>

@@ -19,7 +19,7 @@ class MeditationActivity : ComponentActivity() {
         openNewActivity(AlarmMenu(), openAlarmsButton)
 
         val openStatsButton = findViewById<Button>(R.id.stats)
-        openNewActivity(StatsActivity(), openStatsButton)
+        openNewActivity(StatsDayActivity(), openStatsButton)
 
         val openMainButton = findViewById<Button>(R.id.tracker)
         openNewActivity(MainActivity(), openMainButton)

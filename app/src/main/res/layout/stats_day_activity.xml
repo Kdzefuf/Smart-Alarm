@@ -60,7 +60,7 @@
             android:id="@+id/statsWeekButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-260dp"
+            android:layout_marginStart="-250dp"
             android:background="#FFFFFF"
             android:backgroundTint="#2A2C3E"
             android:fontFamily="@font/montserrat_medium"
@@ -75,9 +75,207 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/stats_change_layout"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:paddingStart="28dp"
+        android:paddingTop="31dp"
+        android:paddingEnd="28dp">
 
 
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Время засыпания"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@id/textView19"
+            android:fontFamily="@font/rubik_medium"
+            android:text="23:00"
+            android:textColor="#776AA6"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/textView19"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="18dp"
+            android:background="#776AA6" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Время пробуждения"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bedTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@id/textView25"
+            android:fontFamily="@font/rubik_medium"
+            android:text="06:00"
+            android:textColor="#776AA6"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/textView25"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="18dp"
+            android:background="#776AA6" />
+
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Длительность сна"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bedTime3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line2"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@id/textView29"
+            android:fontFamily="@font/rubik_medium"
+            android:text="7 часов"
+            android:textColor="#776AA6"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/textView29"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="18dp"
+            android:background="#776AA6" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line4"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Нехватка сна"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bedTime4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line4"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@id/textView31"
+            android:fontFamily="@font/rubik_medium"
+            android:text="0-1 часа"
+            android:textColor="#776AA6"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/line5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/textView31"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="18dp"
+            android:background="#776AA6" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line5"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Качество сна"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bedTime5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line5"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@id/textView35"
+            android:fontFamily="@font/rubik_medium"
+            android:text="9/10"
+            android:textColor="#776AA6"
+            android:textSize="20sp" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/footerMenu"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:background="#2A2C3E"
+        android:orientation="horizontal"
+        android:paddingStart="37dp"
+        android:paddingTop="25dp"
+        android:paddingEnd="36dp">
+
+        <Button
+            android:id="@+id/tracker"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/moon" />
+
+        <Button
+            android:id="@+id/alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/timer" />
+
+        <Button
+            android:id="@+id/stats"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/tab_menu_select" />
+
+        <Button
+            android:id="@+id/music"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/music" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="#00FFFFFF"
+            android:drawableStart="@drawable/setting" />
+
+    </LinearLayout>
 
 </RelativeLayout>

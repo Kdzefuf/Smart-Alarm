@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity(), SleepTrackerView.Listener {
 
         val openStatsButton = findViewById<Button>(R.id.stats)
         openStatsButton.setOnClickListener {
-            val openStatsIntent = Intent(this, StatsActivity::class.java)
+            val openStatsIntent = Intent(this, StatsDayActivity::class.java)
             startActivity(openStatsIntent)
         }
 

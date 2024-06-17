@@ -250,7 +250,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/rubik_medium"
-            android:text="00:00"
+            android:text="23:00"
             android:textColor="#776AA6"
             android:textSize="20sp" />
 
@@ -290,7 +290,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/rubik_medium"
-            android:text="00:00"
+            android:text="07:00"
             android:textColor="#776AA6"
             android:textSize="20sp" />
 

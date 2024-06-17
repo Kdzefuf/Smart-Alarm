@@ -138,7 +138,7 @@ class AlarmMenu : ComponentActivity() {
                     }
                     Button(
                         onClick = {
-                            val openStatsIntent = Intent(context, StatsActivity::class.java)
+                            val openStatsIntent = Intent(context, StatsDayActivity::class.java)
                             startActivity(openStatsIntent)
                             },
                         modifier = Modifier
