@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:background="#000000"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Статистика"
+        android:textAlignment="center"
+        android:textColor="#C1C1C1"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:id="@+id/stats_change_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settingsTitle"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <Button
+            android:id="@+id/statsDayButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/big_round"
+            android:backgroundTint="#776AA6"
+            android:fontFamily="@font/montserrat_medium"
+            android:paddingStart="45dp"
+            android:text="День"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="#C1C1C1"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/statsMonthButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-160dp"
+            android:background="@drawable/big_round"
+            android:backgroundTint="#2A2C3E"
+            android:fontFamily="@font/montserrat_medium"
+            android:paddingStart="30dp"
+            android:text="Месяц"
+            android:textAllCaps="false"
+            android:textColor="#C1C1C1"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/statsWeekButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-260dp"
+            android:background="#FFFFFF"
+            android:backgroundTint="#2A2C3E"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Неделя"
+            android:textAllCaps="false"
+            android:textColor="#C1C1C1"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stats_change_layout"
+        android:layout_centerHorizontal="true">
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

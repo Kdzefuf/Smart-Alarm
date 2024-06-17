@@ -8,7 +8,6 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -65,7 +64,9 @@ class AlarmActivity : ComponentActivity() {
     private var alarmDayText: String = "Кажд. "
     private var dateText : String = ""
     private val repeatCount = RepeatActivity.getRepeatCount()
-    private var repeatText = ""
+    private val repeatMinute = RepeatActivity.getRepeatMinutes()
+    private var repeatCountText = ""
+    private var repeatMinuteText = ""
     private val alarmMusic = AlarmMusicActivity.getAlarmSound()
     private val alarmMusicText = AlarmMusicActivity.getAlarmSoundText()
 
@@ -77,8 +78,6 @@ class AlarmActivity : ComponentActivity() {
         val db = AlarmRoomDatabase.getInstance(this)
 
         val alarm = Alarm(enabled = 1)
-
-        Log.d("sdjjdslk", alarmMusic.toString())
 
         mediaPlayer = MediaPlayer.create(this, alarmMusic)
         calendar = Calendar.getInstance()
@@ -365,12 +364,13 @@ class AlarmActivity : ComponentActivity() {
                                 .padding(top = 5.dp)
                                 .fillMaxWidth()
                                 .weight(1f)) {
+                                getRepeatCountText()
                                 Text(text = "Повтор",
                                     color = Color.White,
                                     fontWeight = FontWeight(400),
                                     fontSize = 16.sp
                                 )
-                                Text(text = "10 минут, 3 раза",
+                                Text(text = repeatMinuteText + repeatCountText,
                                     color = Color(119, 106, 166),
                                     fontWeight = FontWeight(400),
                                     fontSize = 11.sp,
@@ -446,9 +446,6 @@ class AlarmActivity : ComponentActivity() {
                     }
                     Button(onClick = {
                         setAlarm(context)
-                        Thread {
-                            db.getDao().addAlarm(alarm = alarm)
-                        }.start()
                         alarm.label = alarmName.value
                         if (alarm.date == "") {
                             alarm.date = dateText
@@ -461,6 +458,9 @@ class AlarmActivity : ComponentActivity() {
                             alarm.repeatCount = 0
                         }
                         alarm.melody = alarmMusic
+                        Thread {
+                            db.getDao().addAlarm(alarm = alarm)
+                        }.start()
                                      },
                         shape = RoundedCornerShape(40.dp),
                         colors = buttonColors(containerColor = Color(119, 106, 166)),
@@ -498,7 +498,6 @@ class AlarmActivity : ComponentActivity() {
 
         alarmManager.cancel(pendingIntent)
 
-        Toast.makeText(this, "Alarm cancelled", Toast.LENGTH_LONG).show()
         startActivity(mainActivity)
     }
 
@@ -508,7 +507,13 @@ class AlarmActivity : ComponentActivity() {
             checked = checkedState.value,
             onCheckedChange = {
                 checkedState.value = it
-                startActivity(intent)
+                if (checkedState.value) {
+                    startActivity(intent)
+                }
+                if (!checkedState.value) {
+                    repeatCountText = ""
+                    repeatMinuteText = ""
+                }
             },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color(0xFFFFFFFF),
@@ -539,7 +544,7 @@ class AlarmActivity : ComponentActivity() {
             pendingIntent
         )
 
-        Toast.makeText(context, "Alarm set Succesfully", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Будильник установлен", Toast.LENGTH_SHORT).show()
         val setAlarmIntent = Intent(this,AlarmMenu::class.java)
         startActivity(setAlarmIntent)
     }
@@ -568,11 +573,10 @@ class AlarmActivity : ComponentActivity() {
     }
 
     private fun getTomorrowDate(calendar: Calendar) : Int {
-        if (calendar[Calendar.DAY_OF_WEEK] == 7) {
-            return 1
-        }
-        else {
-            return calendar[Calendar.DAY_OF_WEEK] + 1
+        return if (calendar[Calendar.DAY_OF_WEEK] == 7) {
+            1
+        } else {
+            calendar[Calendar.DAY_OF_WEEK] + 1
         }
     }
 
@@ -584,14 +588,18 @@ class AlarmActivity : ComponentActivity() {
 
     private fun getRepeatCountText() {
         if (repeatCount == 3) {
-            repeatText += "5 минут, $repeatCount раза"
+            repeatCountText = "10 минут, $repeatCount раза"
         }
         if (repeatCount == 5) {
-            repeatText += "5 минут, $repeatCount раз"
+            repeatCountText = "10 минут, $repeatCount раз"
         }
-        else {
-            repeatText += "5 минут, бесконечно раз"
+        if (repeatCount == 100) {
+            repeatCountText = "10 минут, бесконечно раз"
         }
+    }
+
+    private fun getRepeatMinutesText() {
+        repeatMinuteText = "$repeatMinute минут,"
     }
 
     private fun getAlarmMusicText() : String {

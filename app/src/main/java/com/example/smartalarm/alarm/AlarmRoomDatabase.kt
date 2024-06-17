@@ -14,7 +14,7 @@ abstract class AlarmRoomDatabase: RoomDatabase() {
             return Room.databaseBuilder(
                     context.applicationContext,
                     AlarmRoomDatabase::class.java,
-                    "alarms.db"
+                    "smart_alarm.db"
                 ).build()
         }
     }

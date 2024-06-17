@@ -1,6 +1,7 @@
 package com.example.smartalarm.alarm
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -17,8 +18,8 @@ interface AlarmDao {
     @Insert
     fun addAlarm(alarm: Alarm)
 
-    @Query("DELETE FROM alarms WHERE id = :id")
-    fun deleteAlarm(id: Int)
+    @Delete
+    fun deleteAlarm(alarm: Alarm)
 
     @Update
     fun updateAlarm(alarm: Alarm)

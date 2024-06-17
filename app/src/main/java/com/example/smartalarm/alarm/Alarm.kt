@@ -24,38 +24,3 @@ data class Alarm (
     @ColumnInfo(name = "enabled")
     var enabled: Int = 0
 )
-//) {
-//
-//    constructor() {}
-//
-//    constructor(id: Int, wakeTime: String, bedTime: String, date: String, repeatCount: Int, melody: Int, label: String, enabled: Boolean) {
-//        this.id = id
-//        this.wakeTime = wakeTime
-//        this.bedTime = bedTime
-//        this.date = date
-//        this.repeatCount = repeatCount
-//        this.melody = melody
-//        this.label = label
-//        if (enabled) {
-//            this.enabled = 1
-//        }
-//        else {
-//            this.enabled = 0
-//        }
-//    }
-//
-//    constructor(wakeTime: String, bedTime: String, date: String, repeatCount: Int, melody: Int, label: String, enabled: Boolean) {
-//        this.wakeTime = wakeTime
-//        this.bedTime = bedTime
-//        this.date = date
-//        this.repeatCount = repeatCount
-//        this.melody = melody
-//        this.label = label
-//        if (enabled) {
-//            this.enabled = 1
-//        }
-//        else {
-//            this.enabled = 0
-//        }
-//    }
-//}
