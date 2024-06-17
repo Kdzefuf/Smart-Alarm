@@ -18,21 +18,25 @@
             android:name=".AlarmMusicActivity"
             android:exported="false"
             android:label="@string/title_activity_alarm_music"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartAlarm" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartAlarm" />
         <activity
             android:name=".MeditationActivity"
             android:exported="false"
             android:label="@string/title_activity_meditation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartAlarm" />
         <activity
             android:name=".StatsActivity"
             android:exported="false"
             android:label="@string/title_activity_stats"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartAlarm" />
         <activity
             android:name=".AlarmActivity"
@@ -48,6 +52,12 @@
             android:theme="@style/Theme.SmartAlarm" />
         <activity
             android:name=".AlarmMenu"
+            android:exported="false"
+            android:label="@string/title_activity_alarm"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SmartAlarm" />
+        <activity
+            android:name=".NotificationActivity"
             android:exported="false"
             android:label="@string/title_activity_alarm"
             android:screenOrientation="portrait"

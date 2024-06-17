@@ -1,7 +1,10 @@
 package com.example.smartalarm
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Window
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -18,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -31,22 +35,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.smartalarm.alarm.AlarmRoomDatabase
 
 class AlarmMenu : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val db = AlarmRoomDatabase.getInstance(this)
+
         setContent {
             val onAlarm1State =  remember { mutableStateOf(false) }
-            val alarmTime1 = "05:30"
+            val alarmTime1 = "04:50"
             val onAlarm2State =  remember { mutableStateOf(false) }
-            val alarmTime2 = "09:15"
+            val alarmTime2 = "10:30"
             val onAlarm3State =  remember { mutableStateOf(false) }
             val alarmTime3 = "12:00"
 
@@ -55,7 +63,7 @@ class AlarmMenu : ComponentActivity() {
                 .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                var context = LocalContext.current
+                val context = LocalContext.current
                 Column {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -80,21 +88,33 @@ class AlarmMenu : ComponentActivity() {
                     ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
-                                text = "Название",
+                                text = "Будильник 1",
                                 modifier = Modifier.fillMaxWidth(0.94f),
                                 color = Color(193, 193, 193),
                                 fontWeight = FontWeight(400),
                                 fontSize = 14.sp,
                                 textAlign = TextAlign.Left
                             )
-                            Image(
-                                painter = painterResource(id = R.drawable.cancel_alarm),
-                                contentDescription = "cancel",
+                            Button(onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(60.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                                 modifier = Modifier
-                                    .height(18.dp)
-                                    .width(18.dp),
-                                alignment = Alignment.CenterEnd
-                            )
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(20.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.cancel_alarm),
+                                    contentDescription = "cancel",
+                                    modifier = Modifier
+                                        .height(18.dp)
+                                        .width(18.dp),
+                                    alignment = Alignment.CenterEnd
+                                )
+                            }
+
                         }
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
@@ -110,7 +130,7 @@ class AlarmMenu : ComponentActivity() {
                             CreateSwitch(checkedState = onAlarm1State)
                         }
                         Text(
-                            text = "Дни недели",
+                            text = "Завтра - пн, 17 июня",
                             modifier = Modifier.padding(top = 2.dp),
                             color = Color(193, 193, 193),
                             fontWeight = FontWeight(400),
@@ -127,21 +147,32 @@ class AlarmMenu : ComponentActivity() {
                     ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
-                                text = "Название",
+                                text = "Будильник 2",
                                 modifier = Modifier.fillMaxWidth(0.94f),
                                 color = Color(193, 193, 193),
                                 fontWeight = FontWeight(400),
                                 fontSize = 14.sp,
                                 textAlign = TextAlign.Left
                             )
-                            Image(
-                                painter = painterResource(id = R.drawable.cancel_alarm),
-                                contentDescription = "cancel",
+                            Button(onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(60.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                                 modifier = Modifier
-                                    .height(18.dp)
-                                    .width(18.dp),
-                                alignment = Alignment.CenterEnd
-                            )
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(20.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.cancel_alarm),
+                                    contentDescription = "cancel",
+                                    modifier = Modifier
+                                        .height(18.dp)
+                                        .width(18.dp),
+                                    alignment = Alignment.CenterEnd
+                                )
+                            }
                         }
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
@@ -157,7 +188,7 @@ class AlarmMenu : ComponentActivity() {
                             CreateSwitch(checkedState = onAlarm2State)
                         }
                         Text(
-                            text = "Дни недели",
+                            text = "Кажд. Ср. Сб.",
                             modifier = Modifier.padding(top = 2.dp),
                             color = Color(193, 193, 193),
                             fontWeight = FontWeight(400),
@@ -174,21 +205,32 @@ class AlarmMenu : ComponentActivity() {
                     ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
-                                text = "Название",
+                                text = "Будильник 3",
                                 modifier = Modifier.fillMaxWidth(0.94f),
                                 color = Color(193, 193, 193),
                                 fontWeight = FontWeight(400),
                                 fontSize = 14.sp,
                                 textAlign = TextAlign.Left
                             )
-                            Image(
-                                painter = painterResource(id = R.drawable.cancel_alarm),
-                                contentDescription = "cancel",
+                            Button(onClick = { showDeleteAlarmDialog() },
+                                shape = RoundedCornerShape(60.dp),
+                                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                                 modifier = Modifier
-                                    .height(18.dp)
-                                    .width(18.dp),
-                                alignment = Alignment.CenterEnd
-                            )
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(20.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.cancel_alarm),
+                                    contentDescription = "cancel",
+                                    modifier = Modifier
+                                        .height(18.dp)
+                                        .width(18.dp),
+                                    alignment = Alignment.CenterEnd
+                                )
+                            }
                         }
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Text(
@@ -204,7 +246,7 @@ class AlarmMenu : ComponentActivity() {
                             CreateSwitch(checkedState = onAlarm3State)
                         }
                         Text(
-                            text = "Дни недели",
+                            text = "Кажд. Вт. Чт.",
                             modifier = Modifier.padding(top = 2.dp),
                             color = Color(193, 193, 193),
                             fontWeight = FontWeight(400),
@@ -346,5 +388,15 @@ class AlarmMenu : ComponentActivity() {
                 uncheckedTrackColor = Color(0xFF000000)
             )
         )
+    }
+
+    private fun showDeleteAlarmDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.delete_alarm_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.Transparent.toArgb()))
+
+        dialog.show()
     }
 }

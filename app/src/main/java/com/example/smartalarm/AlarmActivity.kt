@@ -8,6 +8,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +29,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -48,6 +50,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.smartalarm.alarm.Alarm
+import com.example.smartalarm.alarm.AlarmRoomDatabase
 import com.example.smartalarm.ui.theme.SmartAlarmTheme
 import java.time.LocalTime
 import java.util.Calendar
@@ -58,26 +62,68 @@ class AlarmActivity : ComponentActivity() {
     private lateinit var alarmManager: AlarmManager
     private lateinit var alarmTime: LocalTime
     private lateinit var mediaPlayer: MediaPlayer
+    private var alarmDayText: String = "Кажд. "
+    private var dateText : String = ""
+    private val repeatCount = RepeatActivity.getRepeatCount()
+    private var repeatText = ""
+    private val alarmMusic = AlarmMusicActivity.getAlarmSound()
+    private val alarmMusicText = AlarmMusicActivity.getAlarmSoundText()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseSwitchCompatOrMaterialCode", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.one)
+        val db = AlarmRoomDatabase.getInstance(this)
+
+        val alarm = Alarm(enabled = 1)
+
+        Log.d("sdjjdslk", alarmMusic.toString())
+
+        mediaPlayer = MediaPlayer.create(this, alarmMusic)
+        calendar = Calendar.getInstance()
+
+        val daysOfWeek = mapOf(1 to "вс", 2 to "пн", 3 to "вт", 4 to "ср",
+            5 to "чт", 6 to "пт", 7 to "сб")
+        val months = mapOf(0 to "янв.", 1 to "фев.", 2 to "мар.", 3 to "апр.", 4 to "мая",
+            5 to "июня", 6 to "июля", 7 to "авг.", 8 to "сен.", 9 to "окт.", 10 to "ноя.",
+            11 to "дек.")
+
+        dateText = "Завтра - ${daysOfWeek[getTomorrowDate(calendar)]}, ${calendar[Calendar.DAY_OF_MONTH] + 1} ${months[calendar[Calendar.MONTH]]}"
 
         setContent {
             val repeatCheckedState =  remember { mutableStateOf(false) }
             val volumeUpCheckedState = remember { mutableStateOf(true) }
-            val repeatText = "5 минут, 3 раза"
+
+
+            isAlarmRepeat(repeatCheckedState)
             val alarmName = remember{mutableStateOf("Название будильника")}
             val repeatIntent = Intent(this, RepeatActivity::class.java)
+
+            val mondayButtonColor = remember { mutableStateOf(Color.Transparent) }
+            val tuesdayButtonColor = remember { mutableStateOf(Color.Transparent) }
+            val wednesdayButtonColor = remember { mutableStateOf(Color.Transparent) }
+            val thursdayButtonColor = remember { mutableStateOf(Color.Transparent) }
+            val fridayButtonColor = remember { mutableStateOf(Color.Transparent) }
+            val saturdayButtonColor = remember { mutableStateOf(Color.Transparent) }
+            val sundayButtonColor = remember { mutableStateOf(Color.Transparent) }
+
+            val isMondayAlarm = remember { mutableStateOf(false) }
+            val isTuesdayAlarm = remember { mutableStateOf(false) }
+            val isWednesdayAlarm = remember { mutableStateOf(false) }
+            val isThursdayAlarm = remember { mutableStateOf(false) }
+            val isFridayAlarm = remember { mutableStateOf(false) }
+            val isSaturdayAlarm = remember { mutableStateOf(false) }
+            val isSundayAlarm = remember { mutableStateOf(false) }
+
+            val saturdayTextColor = remember { mutableStateOf(Color(119, 106, 166)) }
+            val sundayTextColor = remember { mutableStateOf(Color(119, 106, 166)) }
 
             SmartAlarmTheme {
                 Column(modifier = Modifier
                     .background(Color.Black)
                     .fillMaxSize()) {
-                    var context = LocalContext.current
+                    val context = LocalContext.current
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = "Установка будильника",
@@ -95,7 +141,9 @@ class AlarmActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxWidth(),
                         textColor = Color.White
                     ) {
-                            snappedTime ->  alarmTime = snappedTime
+                        snappedTime ->  alarmTime = snappedTime
+                        alarm.wakeTime = alarmTime.toString()
+                        alarm.bedTime = (alarmTime.hour - 8).toString() + ":" + alarmTime.minute
                     }
                     Column(modifier = Modifier
                         .wrapContentHeight()
@@ -104,90 +152,201 @@ class AlarmActivity : ComponentActivity() {
                         .padding(start = 20.dp, top = 20.dp, end = 21.dp, bottom = 21.dp)
                         .fillMaxWidth()) {
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "Завтра - пн, 25 мар.",
+                            Text(text = setDateText(),
                                 modifier = Modifier.fillMaxWidth(0.94f),
                                 color = Color.White,
                                 fontWeight = FontWeight(400),
                                 fontSize = 14.sp,
                                 textAlign = TextAlign.Left
                             )
-                            Image(
-                                painter = painterResource(id = R.drawable.calendar),
-                                contentDescription = "Календарь",
+                            Button(onClick = { /*TODO*/ },
+                                shape = RoundedCornerShape(60.dp),
+                                colors = buttonColors(containerColor = Color.Transparent),
                                 modifier = Modifier
-                                    .height(19.dp)
-                                    .width(19.dp),
-                                alignment = Alignment.CenterEnd
-                            )
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.calendar),
+                                    contentDescription = "Календарь",
+                                    modifier = Modifier
+                                        .height(19.dp)
+                                        .width(19.dp),
+                                    alignment = Alignment.Center
+                                )
+                            }
                         }
-                        Row(Modifier.padding(start = 6.dp, top = 12.dp, end = 7.dp)) {
-                            Text(text = "Пн",
+                        Row(
+                            Modifier
+                                .padding(top = 4.dp)
+                                .fillMaxWidth()) {
+                            Button(onClick = {
+                                    setDayOfWeek(mondayButtonColor, isMondayAlarm, "Пн. ")
+                                    alarm.date = setDateText()
+                                },
+                                shape = RoundedCornerShape(60.dp),
+                                colors = buttonColors(containerColor = mondayButtonColor.value),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f),
-                                color = Color.White,
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left
-                            )
-                            Text(text = "Вт",
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Пн",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = Color.White,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Button(onClick = {
+                                    setDayOfWeek(tuesdayButtonColor, isTuesdayAlarm, "Вт. ")
+                                    alarm.date = setDateText()
+                                },
+                                shape = RoundedCornerShape(40.dp),
+                                colors = buttonColors(containerColor = tuesdayButtonColor.value),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f),
-                                color = Color.White,
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left
-                            )
-                            Text(text = "Ср",
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Вт",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = Color.White,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Button(onClick = {
+                                    setDayOfWeek(wednesdayButtonColor, isWednesdayAlarm, "Ср. ")
+                                    alarm.date = setDateText()
+                                },
+                                shape = RoundedCornerShape(40.dp),
+                                colors = buttonColors(containerColor = wednesdayButtonColor.value),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f),
-                                color = Color.White,
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left
-                            )
-                            Text(text = "Чт",
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Ср",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = Color.White,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Button(onClick = {
+                                    setDayOfWeek(thursdayButtonColor, isThursdayAlarm, "Чт. ")
+                                    alarm.date = setDateText()
+                                },
+                                shape = RoundedCornerShape(40.dp),
+                                colors = buttonColors(containerColor = thursdayButtonColor.value),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f),
-                                color = Color.White,
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left
-                            )
-                            Text(
-                                text = "Пт",
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Чт",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = Color.White,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Button(onClick = {
+                                    setDayOfWeek(fridayButtonColor, isFridayAlarm, "Пт. ")
+                                    alarm.date = setDateText()
+                                },
+                                shape = RoundedCornerShape(40.dp),
+                                colors = buttonColors(containerColor = fridayButtonColor.value),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f),
-                                color = Color.White,
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left,
-                            )
-                            Text(text = "Сб",
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Пт",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = Color.White,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Button(onClick = {
+                                    setDayOfWeek(saturdayButtonColor, isSaturdayAlarm, "Сб. ")
+                                    alarm.date = setDateText()
+                                    if (saturdayButtonColor.value == Color.Transparent) {
+                                        saturdayTextColor.value = Color(119, 106, 166)
+                                    }
+                                    else {
+                                        saturdayTextColor.value = Color.White
+                                    }
+                                },
+                                shape = RoundedCornerShape(40.dp),
+                                colors = buttonColors(containerColor = saturdayButtonColor.value),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .weight(1f),
-                                color = Color(119, 106, 166),
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left
-                            )
-                            Text(text = "Вс",
-                                modifier = Modifier.width(25.dp),
-                                color = Color(119, 106, 166),
-                                fontWeight = FontWeight(600),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Left
-                            )
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Сб",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = saturdayTextColor.value,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                            Button(onClick = {
+                                    setDayOfWeek(sundayButtonColor, isSundayAlarm, "Вс. ")
+                                    alarm.date = setDateText()
+                                    if (sundayButtonColor.value == Color.Transparent) {
+                                        sundayTextColor.value = Color(119, 106, 166)
+                                    }
+                                    else {
+                                        sundayTextColor.value = Color.White
+                                    }
+                                },
+                                shape = RoundedCornerShape(40.dp),
+                                colors = buttonColors(containerColor = sundayButtonColor.value),
+                                modifier = Modifier
+                                    .wrapContentWidth()
+                                    .weight(1f)
+                                    .width(27.dp)
+                                    .height(27.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Text(text = "Вс",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = sundayTextColor.value,
+                                    fontWeight = FontWeight(600),
+                                    fontSize = 16.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
                         }
                         BasicTextField(
                             value = alarmName.value,
                             onValueChange = {alarmName.value = it},
-                            modifier = Modifier.padding(start = 6.dp, top = 20.dp, end = 7.dp),
+                            modifier = Modifier.padding(start = 6.dp, top = 10.dp, end = 7.dp),
                             textStyle = TextStyle(
                                 color = Color.White,
                                 fontSize = 16.sp,
@@ -211,7 +370,7 @@ class AlarmActivity : ComponentActivity() {
                                     fontWeight = FontWeight(400),
                                     fontSize = 16.sp
                                 )
-                                Text(text = repeatText,
+                                Text(text = "10 минут, 3 раза",
                                     color = Color(119, 106, 166),
                                     fontWeight = FontWeight(400),
                                     fontSize = 11.sp,
@@ -255,7 +414,7 @@ class AlarmActivity : ComponentActivity() {
                             .background(color = Color(119, 106, 166))
                         )
                         Row(modifier = Modifier.padding(start = 6.dp)) {
-                            Text(text = "Выбор мелодии",
+                            Text(text = getAlarmMusicText(),
                                 modifier = Modifier
                                     .padding(top = 14.dp)
                                     .fillMaxWidth()
@@ -269,9 +428,10 @@ class AlarmActivity : ComponentActivity() {
                                 startActivity(setMusicIntent)
                             },
                                 modifier = Modifier.padding(0.dp),
-                                colors = ButtonDefaults.buttonColors(
+                                colors = buttonColors(
                                     containerColor = Color.Transparent
-                                )) {
+                                )
+                            ) {
                                 Image(
                                     painter = painterResource(id = R.drawable.arrow_right),
                                     contentDescription = "Выбор мелодии",
@@ -284,9 +444,26 @@ class AlarmActivity : ComponentActivity() {
                             }
                         }
                     }
-                    Button(onClick = { setAlarm(context) },
+                    Button(onClick = {
+                        setAlarm(context)
+                        Thread {
+                            db.getDao().addAlarm(alarm = alarm)
+                        }.start()
+                        alarm.label = alarmName.value
+                        if (alarm.date == "") {
+                            alarm.date = dateText
+                        }
+                        if (repeatCheckedState.value) {
+                            getRepeatCountText()
+                            alarm.repeatCount = repeatCount
+                        }
+                        else {
+                            alarm.repeatCount = 0
+                        }
+                        alarm.melody = alarmMusic
+                                     },
                         shape = RoundedCornerShape(40.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(119, 106, 166)),
+                        colors = buttonColors(containerColor = Color(119, 106, 166)),
                         modifier = Modifier
                             .padding(top = 30.dp)
                             .wrapContentWidth()
@@ -347,8 +524,6 @@ class AlarmActivity : ComponentActivity() {
     private fun setAlarm(context: Context) {
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-        calendar = Calendar.getInstance()
-
         calendar[Calendar.HOUR_OF_DAY] = alarmTime.hour
         calendar[Calendar.MINUTE] = alarmTime.minute
         calendar[Calendar.SECOND] = 0
@@ -367,5 +542,64 @@ class AlarmActivity : ComponentActivity() {
         Toast.makeText(context, "Alarm set Succesfully", Toast.LENGTH_SHORT).show()
         val setAlarmIntent = Intent(this,AlarmMenu::class.java)
         startActivity(setAlarmIntent)
+    }
+
+    private fun setDayOfWeek(dayOfWeekButtonColor: MutableState<Color>, isDayAlarm: MutableState<Boolean>, dayOfWeek: String) {
+        if (dayOfWeekButtonColor.value == Color.Transparent) {
+            dayOfWeekButtonColor.value = Color(119, 106, 166)
+            isDayAlarm.value = true
+            alarmDayText += dayOfWeek
+        }
+        else {
+            dayOfWeekButtonColor.value = Color.Transparent
+            isDayAlarm.value = false
+            alarmDayText = alarmDayText.replace(dayOfWeek, "")
+        }
+
+    }
+
+    private fun setDateText() : String {
+        if (alarmDayText != "Кажд. ") {
+            return alarmDayText
+        }
+        else {
+            return dateText
+        }
+    }
+
+    private fun getTomorrowDate(calendar: Calendar) : Int {
+        if (calendar[Calendar.DAY_OF_WEEK] == 7) {
+            return 1
+        }
+        else {
+            return calendar[Calendar.DAY_OF_WEEK] + 1
+        }
+    }
+
+    private fun isAlarmRepeat(repeatCheckedState: MutableState<Boolean>) {
+        if (repeatCount != 0) {
+            repeatCheckedState.value = true
+        }
+    }
+
+    private fun getRepeatCountText() {
+        if (repeatCount == 3) {
+            repeatText += "5 минут, $repeatCount раза"
+        }
+        if (repeatCount == 5) {
+            repeatText += "5 минут, $repeatCount раз"
+        }
+        else {
+            repeatText += "5 минут, бесконечно раз"
+        }
+    }
+
+    private fun getAlarmMusicText() : String {
+        if (alarmMusicText == "") {
+            return "Выбор мелодии"
+        }
+        else {
+            return alarmMusicText
+        }
     }
 }
